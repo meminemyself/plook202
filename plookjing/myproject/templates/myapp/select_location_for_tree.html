@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}เลือกสถานที่ปลูก | PLOOKJING{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #0D3F31; margin-bottom: 2rem;">
+  เลือกพื้นที่สำหรับปลูก <br>🌳 {{ tree.name }} 🌳
+</h1>
+
+{% if locations %}
+  <div class="location-container">
+    {% for location in locations %}
+      <div class="location-card">
+        <h2>{{ location.name }}</h2>
+        <p>ประเภท: {{ location.location_type }}</p>
+
+        <form method="POST" action="{% url 'plant_tree_at_location' %}">
+          {% csrf_token %}
+          <input type="hidden" name="tree_id" value="{{ tree.id }}">
+          <input type="hidden" name="location_id" value="{{ location.id }}">
+          <button type="submit" class="plant-button">ปลูกที่นี่ 🌱</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p style="text-align: center; font-size: 1.2rem; color: #D55E02;">
+    🧡 ยังไม่มีข้อมูลสถานที่ปลูก 🧡
+  </p>
+{% endif %}
+
+<style>
+  .location-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .location-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .location-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .plant-button {
+    background-color: #397413;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .plant-button:hover {
+    background-color: #2f5d10;
+  }
+
+  @media (max-width: 600px) {
+    .location-card {
+      width: 90%;
+    }
+  }
+</style>
+{% endblock %}

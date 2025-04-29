@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ชำระเงินสำหรับการปลูกต้นไม้</title>
+    <style>
+        body {
+            font-family: 'Avenir Next Thai Traditional', 'Avenir Next', sans-serif;
+            background-color: #D5E1ED;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #D55E02;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        img.qr {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 20px;
+        }
+        a.back-button {
+            display: inline-block;
+            background-color: #397413;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        a.back-button:hover {
+            background-color: #0D3F31;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            .tree-list {
+                grid-template-columns: 1fr; /* แถวเดียว */
+            }
+            h1 {
+                font-size: 24px;
+            }
+            p, a.button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>การชำระเงิน</h1>
+    <p>ปลูก {{ tree.name }} จำนวน 1 ต้น ราคา {{ tree.price }} บาท</p>
+    
+    <!-- ใช้รูป QR code สำรอง -->
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=Plant+Tree+Payment" alt="QR Code" class="qr">
+
+    <a href="{% url 'notification_list' %}" class="back-button">✔️ ชำระเงินแล้ว</a>
+</div>
+
+</body>
+</html>

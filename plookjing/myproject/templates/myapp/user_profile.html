@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}My Profile | PLOOKJING{% endblock %}
+{% block content %}
+<style>
+  .profile-container {
+    background-color: white;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .profile-header h2 {
+    color: #0D3F31;
+    font-size: 1.8rem;
+  }
+
+  .profile-info {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .my-trees-link {
+    display: inline-block;
+    margin-top: 2rem;
+    background-color: #D55E02;
+    color: white;
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  .my-trees-link:hover {
+    background-color: #FB7E2B;
+  }
+</style>
+
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>ข้อมูลผู้ใช้</h2>
+  </div>
+
+  <div class="profile-info">
+    <p><strong>ชื่อผู้ใช้:</strong> {{ user.username }}</p>
+    <p><strong>อีเมล:</strong> {{ user.email }}</p>
+    <p><strong>ชื่อเต็ม:</strong> {{ user.get_full_name }}</p>
+  </div>
+
+  <div style="text-align: center;">
+    <a href="{% url 'my_trees' %}" class="my-trees-link">🌱 ต้นไม้ของฉัน</a>
+  </div>
+</div>
+{% endblock %}

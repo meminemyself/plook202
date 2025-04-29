@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ tree.name }} | PLOOKJING{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+
+  <!-- Left: Image -->
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    {% if tree.image %}
+      <img src="{{ tree.image.url }}" alt="{{ tree.name }}" class="w-full object-cover rounded-lg">
+    {% else %}
+      <div class="w-full h-96 bg-gray-100 flex items-center justify-center text-gray-400">ไม่มีภาพ</div>
+    {% endif %}
+  </div>
+
+  <!-- Right: Details -->
+  <div class="space-y-6">
+    <h1 class="text-4xl font-bold text-green-900">{{ tree.name }}</h1>
+
+    <div class="text-xl text-orange-600 font-semibold">
+      {{ tree.price }} บาท
+    </div>
+
+    <div class="text-gray-700 text-lg leading-relaxed">
+      {{ tree.description }}
+    </div>
+
+    <form method="post" action="{% url 'plant_tree' tree.id %}" class="space-y-4">
+      {% csrf_token %}
+      
+      <label class="block">
+        <span class="text-sm text-gray-600">เลือกขนาด:</span>
+        <select name="size" class="mt-1 w-full border rounded px-3 py-2 focus:outline-green-500">
+          <option>เล็ก</option>
+          <option selected>กลาง</option>
+          <option>ใหญ่</option>
+        </select>
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-600">จำนวน:</span>
+        <input type="number" name="quantity" value="1" min="1"
+               class="mt-1 w-24 border rounded px-3 py-2 text-center focus:outline-green-500">
+      </label>
+
+      <button type="submit"
+              class="w-full bg-green-700 hover:bg-green-800 text-white py-3 rounded-full font-semibold shadow-md transition">
+        ปลูกต้นไม้เลย 🌱
+      </button>
+    </form>
+
+    <div class="text-sm text-gray-400 mt-6">* เมื่อปลูกจะมีการบันทึกลงใน "ต้นไม้ของคุณ"</div>
+  </div>
+
+</div>
+{% endblock %}
